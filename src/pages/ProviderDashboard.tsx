@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, User, FileText, Calendar, AlertCircle, CheckCircle, Clock } from "lucide-react";
-import Layout from "@/components/layout/Layout";
+import Navigation from "@/components/ui/navigation";
 
 const ProviderDashboard = () => {
   const [searchId, setSearchId] = useState("");
@@ -48,37 +48,15 @@ const ProviderDashboard = () => {
     setSelectedWorker(worker);
   };
 
-  const subNavItems = [
-    { href: "/provider-dashboard", label: "Overview" },
-    { href: "/provider-dashboard/patients", label: "Patient Management" },
-    { href: "/provider-dashboard/records", label: "Medical Records" },
-    { href: "/provider-dashboard/settings", label: "Settings" }
-  ];
-
-  const breadcrumbItems = [
-    { label: "Healthcare", href: "/" },
-    { label: "Provider Portal", href: "/provider-dashboard" },
-    { label: "Dashboard" }
-  ];
-
   return (
-    <Layout 
-      title="Healthcare Provider Dashboard" 
-      subNavItems={subNavItems}
-      breadcrumbItems={breadcrumbItems}
-    >
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-foreground mb-2">Healthcare Provider Dashboard</h1>
-        <p className="text-xl text-muted-foreground mb-8 max-w-4xl">
-          Everything you need to access and manage migrant worker health records securely — in one web interface
-        </p>
+    <div className="min-h-screen bg-background p-4">
+      <div className="max-w-6xl mx-auto">
+        <Navigation />
         
-        <div className="mb-8">
-          <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90">
-            Sign in
-          </Button>
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-primary mb-2">Healthcare Provider Dashboard</h1>
+          <p className="text-muted-foreground">Access and manage migrant worker health records securely</p>
         </div>
-      </div>
 
         <Tabs defaultValue="search" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
@@ -276,7 +254,8 @@ const ProviderDashboard = () => {
             </div>
           </TabsContent>
         </Tabs>
-    </Layout>
+      </div>
+    </div>
   );
 };
 

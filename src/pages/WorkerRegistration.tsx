@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { UserPlus, Upload, CheckCircle } from "lucide-react";
-import Layout from "@/components/layout/Layout";
+import Navigation from "@/components/ui/navigation";
 import { useToast } from "@/hooks/use-toast";
 
 const WorkerRegistration = () => {
@@ -42,47 +42,31 @@ const WorkerRegistration = () => {
     });
   };
 
-  const subNavItems = [
-    { href: "/worker-registration", label: "Overview" },
-    { href: "/worker-registration/features", label: "Features" },
-    { href: "/worker-registration/mobile", label: "Mobile Application" },
-    { href: "/worker-registration/help", label: "Help" }
-  ];
-
-  const breadcrumbItems = [
-    { label: "Healthcare", href: "/" },
-    { label: "Worker Portal", href: "/worker-registration" },
-    { label: "Registration" }
-  ];
-
   if (isSubmitted) {
     return (
-      <Layout 
-        title="Worker Registration Portal" 
-        subNavItems={subNavItems}
-        breadcrumbItems={breadcrumbItems}
-      >
-        <Card className="text-center p-8">
-          <CheckCircle className="w-16 h-16 mx-auto text-success mb-4" />
-          <CardTitle className="text-2xl mb-2">Registration Complete!</CardTitle>
-          <CardDescription className="text-lg mb-4">
-            Your digital health ID has been created: <Badge variant="outline" className="ml-2">WID-2024-001</Badge>
-          </CardDescription>
-          <p className="text-muted-foreground mb-6">
-            You can now access healthcare services at any participating hospital or clinic.
-          </p>
-          <Button onClick={() => setIsSubmitted(false)}>Register Another Worker</Button>
-        </Card>
-      </Layout>
+      <div className="min-h-screen bg-background p-4">
+        <div className="max-w-4xl mx-auto">
+          <Navigation />
+          <Card className="text-center p-8">
+            <CheckCircle className="w-16 h-16 mx-auto text-success mb-4" />
+            <CardTitle className="text-2xl mb-2">Registration Complete!</CardTitle>
+            <CardDescription className="text-lg mb-4">
+              Your digital health ID has been created: <Badge variant="outline" className="ml-2">WID-2024-001</Badge>
+            </CardDescription>
+            <p className="text-muted-foreground mb-6">
+              You can now access healthcare services at any participating hospital or clinic.
+            </p>
+            <Button onClick={() => setIsSubmitted(false)}>Register Another Worker</Button>
+          </Card>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Layout 
-      title="Worker Registration Portal" 
-      subNavItems={subNavItems}
-      breadcrumbItems={breadcrumbItems}
-    >
+    <div className="min-h-screen bg-background p-4">
+      <div className="max-w-4xl mx-auto">
+        <Navigation />
         
         <Card>
           <CardHeader className="text-center">
@@ -272,7 +256,8 @@ const WorkerRegistration = () => {
             </form>
           </CardContent>
         </Card>
-    </Layout>
+      </div>
+    </div>
   );
 };
 

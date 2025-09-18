@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Download, Upload, Calendar, Pill, Activity, AlertTriangle } from "lucide-react";
-import Layout from "@/components/layout/Layout";
+import Navigation from "@/components/ui/navigation";
 
 const HealthRecords = () => {
   const [workerId, setWorkerId] = useState("WID-2024-001");
@@ -58,37 +58,15 @@ const HealthRecords = () => {
     ]
   };
 
-  const subNavItems = [
-    { href: "/health-records", label: "Overview" },
-    { href: "/health-records/medical", label: "Medical History" },
-    { href: "/health-records/documents", label: "Documents" },
-    { href: "/health-records/sharing", label: "Sharing Settings" }
-  ];
-
-  const breadcrumbItems = [
-    { label: "Healthcare", href: "/" },
-    { label: "Digital Records", href: "/health-records" },
-    { label: "Health Records" }
-  ];
-
   return (
-    <Layout 
-      title="Digital Health Records" 
-      subNavItems={subNavItems}
-      breadcrumbItems={breadcrumbItems}
-    >
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-foreground mb-2">Digital Health Records</h1>
-        <p className="text-xl text-muted-foreground mb-8 max-w-4xl">
-          Everything you need to access and manage comprehensive medical history and documents — in one web interface
-        </p>
+    <div className="min-h-screen bg-background p-4">
+      <div className="max-w-6xl mx-auto">
+        <Navigation />
         
-        <div className="mb-8">
-          <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90">
-            Sign in
-          </Button>
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-primary mb-2">Digital Health Records</h1>
+          <p className="text-muted-foreground">Comprehensive medical history and documents</p>
         </div>
-      </div>
 
         {/* Worker ID Search */}
         <Card className="mb-6">
@@ -275,7 +253,8 @@ const HealthRecords = () => {
             ))}
           </TabsContent>
         </Tabs>
-    </Layout>
+      </div>
+    </div>
   );
 };
 
