@@ -3,172 +3,632 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zencare Nexus - Healthcare Records for Migrant Workers</title>
-  <meta name="description" content="Secure Digital Healthcare Records for Migrant Workers. Empowering migrant workers with portable, secure health records accessible across hospitals and clinics worldwide.">
+  <title>Zencare Nexus - Sign In / Sign Up</title>
+  <meta name="description" content="Sign in or sign up to Zencare Nexus - Secure Digital Healthcare Records for Migrant Workers">
   
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Custom CSS -->
   <style>
-    /* Hero Section */
-    .hero-section {
+    body {
+      background: linear-gradient(135deg, #0d6efd, #20c997);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .auth-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .auth-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+    }
+
+    .logo-section {
       background: linear-gradient(135deg, #0d6efd, #20c997);
       color: white;
-      border-radius: 0 0 50px 50px;
-    }
-    .hero-section h1 {
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-    }
-    .hero-section p {
-      color: #f8f9fa !important;
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
     }
 
-    /* Feature Cards */
-    .card {
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    .logo-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.15"/><circle cx="10" cy="90" r="0.5" fill="white" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
     }
 
-    /* Footer */
-    footer {
-      background: linear-gradient(90deg, #0d6efd, #20c997);
+    .logo-section * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-section {
+      padding: 3rem 2rem;
+    }
+
+    .form-control {
+      border-radius: 12px;
+      border: 2px solid #e9ecef;
+      padding: 12px 16px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0d6efd, #20c997);
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(13, 110, 253, 0.3);
+    }
+
+    .btn-outline-primary {
+      border: 2px solid #0d6efd;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary:hover {
+      background: linear-gradient(135deg, #0d6efd, #20c997);
+      border-color: transparent;
+      transform: translateY(-2px);
+    }
+
+    .user-type-selector {
+      display: flex;
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 4px;
+      margin-bottom: 2rem;
+    }
+
+    .user-type-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 20px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .user-type-btn.active {
+      background: linear-gradient(135deg, #0d6efd, #20c997);
+      color: white;
+      box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+    }
+
+    .toggle-form {
+      color: #0d6efd;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-form:hover {
+      color: #20c997;
+      text-decoration: underline;
+    }
+
+    .form-floating label {
+      color: #6c757d;
+    }
+
+    .auth-header {
+      margin-bottom: 2rem;
+    }
+
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #dee2e6;
+    }
+
+    .divider span {
+      background: white;
+      padding: 0 1rem;
+      color: #6c757d;
+      font-size: 0.875rem;
+    }
+
+    .alert {
+      border-radius: 12px;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      .logo-section {
+        padding: 2rem 1rem;
+      }
+      
+      .form-section {
+        padding: 2rem 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container-fluid auth-container">
     <div class="container">
-      <!-- Circle Logo with Text -->
-      <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="index.html">
-        <img src="GEN CARES NEXUS2.png" alt="Zencare Nexus Logo" 
-             class="rounded-circle me-2" 
-             style="width:50px; height:50px; object-fit:cover;">
-        <span class="text-primary">Zencare Nexus</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="worker-registration.html">Worker Registration</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="provider-dashboard.html">Provider Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="health-records.html">Health Records</a>
-          </li>
-        </ul>
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+          <div class="auth-card">
+            <div class="row g-0">
+              <!-- Logo Section -->
+              <div class="col-lg-5">
+                <div class="logo-section h-100 d-flex flex-column justify-content-center">
+                  <div class="mb-4">
+                    <i class="bi bi-shield-heart display-1 mb-3"></i>
+                    <h2 class="fw-bold mb-3">Zencare Nexus</h2>
+                    <p class="mb-4 opacity-90">
+                      Secure Digital Healthcare Records for Migrant Workers
+                    </p>
+                    <div class="d-flex justify-content-center gap-3 text-white-50">
+                      <i class="bi bi-shield-check fs-4"></i>
+                      <i class="bi bi-globe2 fs-4"></i>
+                      <i class="bi bi-file-medical fs-4"></i>
+                      <i class="bi bi-people fs-4"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Section -->
+              <div class="col-lg-7">
+                <div class="form-section">
+                  <!-- User Type Selector -->
+                  <div class="user-type-selector">
+                    <button class="user-type-btn active" id="userBtn" onclick="selectUserType('user')">
+                      <i class="bi bi-person me-2"></i>Worker/User
+                    </button>
+                    <button class="user-type-btn" id="adminBtn" onclick="selectUserType('admin')">
+                      <i class="bi bi-shield-exclamation me-2"></i>Admin
+                    </button>
+                  </div>
+
+                  <!-- Sign In Form -->
+                  <div id="signinForm">
+                    <div class="auth-header text-center">
+                      <h3 class="fw-bold mb-2">Welcome Back</h3>
+                      <p class="text-muted">Sign in to access your healthcare records</p>
+                    </div>
+
+                    <div id="alertContainer"></div>
+
+                    <form id="loginForm">
+                      <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" required>
+                        <label for="loginEmail">
+                          <i class="bi bi-envelope me-2"></i>Email Address
+                        </label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                        <label for="loginPassword">
+                          <i class="bi bi-lock me-2"></i>Password
+                        </label>
+                      </div>
+
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">
+                          Remember me
+                        </label>
+                      </div>
+
+                      <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                        </button>
+                      </div>
+                    </form>
+
+                    <div class="text-center">
+                      <a href="#" class="toggle-form" onclick="showForgotPassword()">
+                        Forgot your password?
+                      </a>
+                    </div>
+
+                    <div class="divider">
+                      <span>Don't have an account?</span>
+                    </div>
+
+                    <div class="text-center">
+                      <button class="btn btn-outline-primary" onclick="showSignup()">
+                        <i class="bi bi-person-plus me-2"></i>Create Account
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Sign Up Form -->
+                  <div id="signupForm" style="display: none;">
+                    <div class="auth-header text-center">
+                      <h3 class="fw-bold mb-2">Create Account</h3>
+                      <p class="text-muted">Join Zencare Nexus to secure your health records</p>
+                    </div>
+
+                    <div id="signupAlertContainer"></div>
+
+                    <form id="registerForm">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="firstName" placeholder="First Name" required>
+                            <label for="firstName">
+                              <i class="bi bi-person me-2"></i>First Name
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+                            <label for="lastName">
+                              <i class="bi bi-person me-2"></i>Last Name
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="signupEmail" placeholder="name@example.com" required>
+                        <label for="signupEmail">
+                          <i class="bi bi-envelope me-2"></i>Email Address
+                        </label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <input type="tel" class="form-control" id="phoneNumber" placeholder="Phone Number" required>
+                        <label for="phoneNumber">
+                          <i class="bi bi-telephone me-2"></i>Phone Number
+                        </label>
+                      </div>
+
+                      <div id="workerFields">
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control" id="workerId" placeholder="Worker ID">
+                          <label for="workerId">
+                            <i class="bi bi-card-text me-2"></i>Worker ID (Optional)
+                          </label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                          <select class="form-select" id="nationality" required>
+                            <option value="">Select Nationality</option>
+                            <option value="india">India</option>
+                            <option value="bangladesh">Bangladesh</option>
+                            <option value="nepal">Nepal</option>
+                            <option value="sri-lanka">Sri Lanka</option>
+                            <option value="philippines">Philippines</option>
+                            <option value="indonesia">Indonesia</option>
+                            <option value="other">Other</option>
+                          </select>
+                          <label for="nationality">
+                            <i class="bi bi-globe me-2"></i>Nationality
+                          </label>
+                        </div>
+                      </div>
+
+                      <div id="adminFields" style="display: none;">
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control" id="hospitalName" placeholder="Hospital/Clinic Name">
+                          <label for="hospitalName">
+                            <i class="bi bi-hospital me-2"></i>Hospital/Clinic Name
+                          </label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control" id="licenseNumber" placeholder="Medical License Number">
+                          <label for="licenseNumber">
+                            <i class="bi bi-award me-2"></i>Medical License Number
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="signupPassword" placeholder="Password" required>
+                        <label for="signupPassword">
+                          <i class="bi bi-lock me-2"></i>Password
+                        </label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                        <label for="confirmPassword">
+                          <i class="bi bi-lock-fill me-2"></i>Confirm Password
+                        </label>
+                      </div>
+
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                        <label class="form-check-label" for="agreeTerms">
+                          I agree to the <a href="#" class="toggle-form">Terms of Service</a> and <a href="#" class="toggle-form">Privacy Policy</a>
+                        </label>
+                      </div>
+
+                      <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="bi bi-person-check me-2"></i>Create Account
+                        </button>
+                      </div>
+                    </form>
+
+                    <div class="divider">
+                      <span>Already have an account?</span>
+                    </div>
+
+                    <div class="text-center">
+                      <button class="btn btn-outline-primary" onclick="showSignin()">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Forgot Password Form -->
+                  <div id="forgotPasswordForm" style="display: none;">
+                    <div class="auth-header text-center">
+                      <h3 class="fw-bold mb-2">Reset Password</h3>
+                      <p class="text-muted">Enter your email to receive reset instructions</p>
+                    </div>
+
+                    <div id="forgotAlertContainer"></div>
+
+                    <form id="forgotForm">
+                      <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="forgotEmail" placeholder="name@example.com" required>
+                        <label for="forgotEmail">
+                          <i class="bi bi-envelope me-2"></i>Email Address
+                        </label>
+                      </div>
+
+                      <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="bi bi-envelope-paper me-2"></i>Send Reset Link
+                        </button>
+                      </div>
+                    </form>
+
+                    <div class="text-center">
+                      <button class="btn btn-outline-primary" onclick="showSignin()">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Sign In
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero-section py-5">
-    <div class="container">
-      <div class="text-center py-5">
-        <!-- Circle Logo in Hero -->
-        <div class="mb-4">
-          <img src="GEN CARES NEXUS2.png" alt="Zencare Nexus Logo" 
-               class="rounded-circle shadow" 
-               style="width:120px; height:120px; object-fit:cover;">
-        </div>
-        <h1 class="display-2 fw-bold mb-4">Zencare Nexus</h1>
-        <p class="lead fs-2 mb-4">Secure Digital Healthcare Records for Migrant Workers</p>
-        <p class="fs-5 mb-5 mx-auto" style="max-width: 600px;">
-          Empowering migrant workers with portable, secure health records accessible across hospitals and clinics worldwide
-        </p>
-
-        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-          <a href="worker-registration.html" class="btn btn-light btn-lg px-4 py-3">
-            <i class="bi bi-person-plus me-2"></i>
-            Register as Worker
-          </a>
-          <a href="provider-dashboard.html" class="btn btn-outline-light btn-lg px-4 py-3">
-            <i class="bi bi-hospital me-2"></i>
-            Healthcare Provider
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="py-5 bg-light">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100 text-center border-0 shadow-sm">
-            <div class="card-body p-4">
-              <i class="bi bi-shield-check display-4 text-primary mb-3"></i>
-              <h5 class="card-title">Secure & Private</h5>
-              <p class="card-text text-muted">
-                End-to-end encryption ensures your medical data stays private and secure
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100 text-center border-0 shadow-sm">
-            <div class="card-body p-4">
-              <i class="bi bi-globe2 display-4 text-success mb-3"></i>
-              <h5 class="card-title">Global Access</h5>
-              <p class="card-text text-muted">
-                Access your health records from any participating hospital or clinic worldwide
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100 text-center border-0 shadow-sm">
-            <div class="card-body p-4">
-              <i class="bi bi-file-medical display-4 text-warning mb-3"></i>
-              <h5 class="card-title">Complete Records</h5>
-              <p class="card-text text-muted">
-                Store medical history, prescriptions, allergies, and vaccination records
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100 text-center border-0 shadow-sm">
-            <div class="card-body p-4">
-              <i class="bi bi-people display-4 text-info mb-3"></i>
-              <h5 class="card-title">Multi-language</h5>
-              <p class="card-text text-muted">
-                Available in multiple languages to serve diverse migrant worker communities
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="text-white py-4">
-    <div class="container text-center">
-      <p class="mb-1 fs-5">🌍 Zencare Nexus</p>
-      <p class="mb-2">Empowering migrant workers with secure, portable healthcare records</p>
-      <p class="mb-0">&copy; 2024 Zencare Nexus. All rights reserved.</p>
-    </div>
-  </footer>
+  </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    let currentUserType = 'user';
+    
+    // User type selection
+    function selectUserType(type) {
+      currentUserType = type;
+      
+      // Update button states
+      document.getElementById('userBtn').classList.toggle('active', type === 'user');
+      document.getElementById('adminBtn').classList.toggle('active', type === 'admin');
+      
+      // Show/hide relevant fields
+      document.getElementById('workerFields').style.display = type === 'user' ? 'block' : 'none';
+      document.getElementById('adminFields').style.display = type === 'admin' ? 'block' : 'none';
+    }
+
+    // Form switching functions
+    function showSignup() {
+      document.getElementById('signinForm').style.display = 'none';
+      document.getElementById('signupForm').style.display = 'block';
+      document.getElementById('forgotPasswordForm').style.display = 'none';
+      clearAlerts();
+    }
+
+    function showSignin() {
+      document.getElementById('signinForm').style.display = 'block';
+      document.getElementById('signupForm').style.display = 'none';
+      document.getElementById('forgotPasswordForm').style.display = 'none';
+      clearAlerts();
+    }
+
+    function showForgotPassword() {
+      document.getElementById('signinForm').style.display = 'none';
+      document.getElementById('signupForm').style.display = 'none';
+      document.getElementById('forgotPasswordForm').style.display = 'block';
+      clearAlerts();
+    }
+
+    // Alert functions
+    function showAlert(containerId, message, type = 'danger') {
+      const container = document.getElementById(containerId);
+      container.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+          <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      `;
+    }
+
+    function clearAlerts() {
+      document.getElementById('alertContainer').innerHTML = '';
+      document.getElementById('signupAlertContainer').innerHTML = '';
+      document.getElementById('forgotAlertContainer').innerHTML = '';
+    }
+
+    // Form submission handlers
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      // Simulate authentication
+      if (email && password) {
+        showAlert('alertContainer', 'Signing you in...', 'success');
+        
+        setTimeout(() => {
+          // Create user data for session
+          const userData = {
+            name: document.getElementById('firstName') ? 
+              `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}` : 
+              email.split('@')[0],
+            email: email,
+            userType: currentUserType,
+            loginTime: new Date().toISOString()
+          };
+          
+          // Store in sessionStorage
+          sessionStorage.setItem('zencareAuth', JSON.stringify(userData));
+          
+          // Redirect to index with authentication parameters
+          const params = new URLSearchParams({
+            authenticated: 'true',
+            from: 'auth',
+            name: userData.name,
+            email: userData.email,
+            userType: userData.userType
+          });
+          
+          window.location.href = `index.html?${params.toString()}`;
+        }, 1500);
+      } else {
+        showAlert('alertContainer', 'Please fill in all required fields.');
+      }
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        showAlert('signupAlertContainer', 'Passwords do not match.');
+        return;
+      }
+      
+      if (password.length < 8) {
+        showAlert('signupAlertContainer', 'Password must be at least 8 characters long.');
+        return;
+      }
+      
+      // Simulate registration
+      const userData = {
+        name: `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`,
+        email: document.getElementById('signupEmail').value,
+        userType: currentUserType,
+        loginTime: new Date().toISOString()
+      };
+      
+      showAlert('signupAlertContainer', 'Account created successfully! Redirecting...', 'success');
+      
+      setTimeout(() => {
+        // Store in sessionStorage
+        sessionStorage.setItem('zencareAuth', JSON.stringify(userData));
+        
+        // Redirect to index with authentication parameters
+        const params = new URLSearchParams({
+          authenticated: 'true',
+          from: 'auth',
+          name: userData.name,
+          email: userData.email,
+          userType: userData.userType
+        });
+        
+        window.location.href = `index.html?${params.toString()}`;
+      }, 2000);
+    });
+
+    document.getElementById('forgotForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('forgotEmail').value;
+      
+      if (email) {
+        showAlert('forgotAlertContainer', 'Password reset link sent to your email!', 'success');
+      }
+    });
+
+    // Password strength indicator
+    document.getElementById('signupPassword').addEventListener('input', function(e) {
+      const password = e.target.value;
+      const strength = calculatePasswordStrength(password);
+      // You can add visual password strength indicator here
+    });
+
+    function calculatePasswordStrength(password) {
+      let strength = 0;
+      if (password.length >= 8) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[a-z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[^A-Za-z0-9]/.test(password)) strength++;
+      return strength;
+    }
+
+    // Real-time email validation
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    // Add real-time validation feedback
+    document.querySelectorAll('input[type="email"]').forEach(input => {
+      input.addEventListener('blur', function() {
+        if (this.value && !validateEmail(this.value)) {
+          this.setCustomValidity('Please enter a valid email address');
+          this.classList.add('is-invalid');
+        } else {
+          this.setCustomValidity('');
+          this.classList.remove('is-invalid');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
