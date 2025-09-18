@@ -178,7 +178,6 @@
       .logo-section {
         padding: 2rem 1rem;
       }
-      
       .form-section {
         padding: 2rem 1rem;
       }
@@ -447,20 +446,14 @@
   <script>
     let currentUserType = 'user';
     
-    // User type selection
     function selectUserType(type) {
       currentUserType = type;
-      
-      // Update button states
       document.getElementById('userBtn').classList.toggle('active', type === 'user');
       document.getElementById('adminBtn').classList.toggle('active', type === 'admin');
-      
-      // Show/hide relevant fields
       document.getElementById('workerFields').style.display = type === 'user' ? 'block' : 'none';
       document.getElementById('adminFields').style.display = type === 'admin' ? 'block' : 'none';
     }
 
-    // Form switching functions
     function showSignup() {
       document.getElementById('signinForm').style.display = 'none';
       document.getElementById('signupForm').style.display = 'block';
@@ -482,14 +475,12 @@
       clearAlerts();
     }
 
-    // Alert functions
     function showAlert(containerId, message, type = 'danger') {
       const container = document.getElementById(containerId);
       container.innerHTML = `
         <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-          <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
           ${message}
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       `;
     }
@@ -500,32 +491,24 @@
       document.getElementById('forgotAlertContainer').innerHTML = '';
     }
 
-    // Form submission handlers
+    // Login Form Handler
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
       
-      // Simulate authentication
       if (email && password) {
         showAlert('alertContainer', 'Signing you in...', 'success');
-        
         setTimeout(() => {
-          // Create user data for session
           const userData = {
-            name: document.getElementById('firstName') ? 
-              `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}` : 
-              email.split('@')[0],
+            name: email.split('@')[0],
             email: email,
             userType: currentUserType,
             loginTime: new Date().toISOString()
           };
-          
-          // Store in sessionStorage
           sessionStorage.setItem('zencareAuth', JSON.stringify(userData));
-          
-          // Redirect to index with authentication parameters
+
+          // ✅ Redirect to home.html
           const params = new URLSearchParams({
             authenticated: 'true',
             from: 'auth',
@@ -533,17 +516,16 @@
             email: userData.email,
             userType: userData.userType
           });
-          
-          window.location.href = `index.html?${params.toString()}`;
+          window.location.href = `home.html?${params.toString()}`;
         }, 1500);
       } else {
         showAlert('alertContainer', 'Please fill in all required fields.');
       }
     });
 
+    // Signup Form Handler
     document.getElementById('registerForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
       const password = document.getElementById('signupPassword').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
       
@@ -551,27 +533,25 @@
         showAlert('signupAlertContainer', 'Passwords do not match.');
         return;
       }
-      
+
       if (password.length < 8) {
         showAlert('signupAlertContainer', 'Password must be at least 8 characters long.');
         return;
       }
-      
-      // Simulate registration
+
       const userData = {
         name: `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`,
         email: document.getElementById('signupEmail').value,
         userType: currentUserType,
         loginTime: new Date().toISOString()
       };
-      
+
       showAlert('signupAlertContainer', 'Account created successfully! Redirecting...', 'success');
-      
+
       setTimeout(() => {
-        // Store in sessionStorage
         sessionStorage.setItem('zencareAuth', JSON.stringify(userData));
-        
-        // Redirect to index with authentication parameters
+
+        // ✅ Redirect to home.html
         const params = new URLSearchParams({
           authenticated: 'true',
           from: 'auth',
@@ -579,55 +559,8 @@
           email: userData.email,
           userType: userData.userType
         });
-        
-        window.location.href = `index.html?${params.toString()}`;
+        window.location.href = `home.html?${params.toString()}`;
       }, 2000);
-    });
-
-    document.getElementById('forgotForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const email = document.getElementById('forgotEmail').value;
-      
-      if (email) {
-        showAlert('forgotAlertContainer', 'Password reset link sent to your email!', 'success');
-      }
-    });
-
-    // Password strength indicator
-    document.getElementById('signupPassword').addEventListener('input', function(e) {
-      const password = e.target.value;
-      const strength = calculatePasswordStrength(password);
-      // You can add visual password strength indicator here
-    });
-
-    function calculatePasswordStrength(password) {
-      let strength = 0;
-      if (password.length >= 8) strength++;
-      if (/[A-Z]/.test(password)) strength++;
-      if (/[a-z]/.test(password)) strength++;
-      if (/[0-9]/.test(password)) strength++;
-      if (/[^A-Za-z0-9]/.test(password)) strength++;
-      return strength;
-    }
-
-    // Real-time email validation
-    function validateEmail(email) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(email);
-    }
-
-    // Add real-time validation feedback
-    document.querySelectorAll('input[type="email"]').forEach(input => {
-      input.addEventListener('blur', function() {
-        if (this.value && !validateEmail(this.value)) {
-          this.setCustomValidity('Please enter a valid email address');
-          this.classList.add('is-invalid');
-        } else {
-          this.setCustomValidity('');
-          this.classList.remove('is-invalid');
-        }
-      });
     });
   </script>
 </body>
