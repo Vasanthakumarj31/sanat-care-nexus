@@ -1,46 +1,44 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Heart, Shield, Users, Globe, UserPlus, Hospital, FileText, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import Navigation from "@/components/ui/navigation";
+import Layout from "@/components/layout/Layout";
 
 const Index = () => {
+  const subNavItems = [
+    { href: "/", label: "Overview" },
+    { href: "/features", label: "Features" },
+    { href: "/mobile-app", label: "Mobile Application" },
+    { href: "/faqs", label: "FAQs" }
+  ];
+
+  const breadcrumbItems = [
+    { label: "Healthcare", href: "/" },
+    { label: "Digital Records", href: "/" },
+    { label: "Sanat Care Nexus" }
+  ];
+
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-6xl mx-auto p-4">
-        <Navigation />
+    <Layout 
+      title="Sanat Care Nexus" 
+      subNavItems={subNavItems}
+      breadcrumbItems={breadcrumbItems}
+    >
+      {/* Main Content Section */}
+      <div className="mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          Sanat Care Nexus
+        </h1>
+        <p className="text-xl text-muted-foreground mb-8 max-w-4xl">
+          Everything you need to access and manage secure digital healthcare records for migrant workers — in one web interface
+        </p>
         
-        {/* Hero Section */}
-        <div className="text-center mb-12 py-12">
-          <div className="flex justify-center mb-6">
-            <Heart className="w-16 h-16 text-primary" />
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-primary mb-6">
-            Sanat Care Nexus
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Secure Digital Healthcare Records for Migrant Workers
-          </p>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Empowering migrant workers with portable, secure health records accessible across hospitals and clinics worldwide
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8 py-6">
-              <Link to="/worker-registration">
-                <UserPlus className="w-5 h-5 mr-2" />
-                Register as Worker
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
-              <Link to="/provider-dashboard">
-                <Hospital className="w-5 h-5 mr-2" />
-                Healthcare Provider
-              </Link>
-            </Button>
-          </div>
+        <div className="mb-8">
+          <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90">
+            Sign in
+          </Button>
         </div>
+      </div>
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -175,8 +173,7 @@ const Index = () => {
             </Button>
           </div>
         </Card>
-      </div>
-    </div>
+    </Layout>
   );
 };
 
